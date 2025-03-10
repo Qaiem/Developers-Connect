@@ -5,12 +5,13 @@ const post = require("./routes/api/post");
 const profile = require("./routes/api/profile");
 const bodyParser = require("body-parser");
 
+const app = express();
+
 
 //body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-const app = express();
 const port = process.env.PORT || 3000;
 
 //db config
