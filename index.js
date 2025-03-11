@@ -29,13 +29,13 @@ app.use("/api/post", post);
 app.use("/api/profile", profile);
 
 // Define a simple User model
-const UserSchema = new mongoose.Schema({ name: String, email: String });
-const User = mongoose.model("User", UserSchema);
+// const UserSchema = new mongoose.Schema({ name: String, email: String });
+// const User = mongoose.model("User", UserSchema);
 
 // Insert a user to create the database
-User.create({ name: "John Doe", email: "john@example.com" })
-  .then(() => console.log("User added, database created"))
-  .catch((err) => console.error(err));
+// User.create({ name: "John Doe", email: "john@example.com" })
+//   .then(() => console.log("User added, database created"))
+//   .catch((err) => console.error(err));
 
 app.get("/", (req, res) => {
   res.send("Hello Worldgg!");
