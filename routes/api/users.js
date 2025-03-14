@@ -10,6 +10,7 @@ const gravatar = require("gravatar");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
+const passport = require("passport");
 
 //@route GET  api/users/test
 //@description Tests users route
@@ -88,6 +89,14 @@ router.post("/login", (req, res) => {
       }
     });
   });
+});
+
+//@route GET  api/users/current
+//@description return current user
+//@access Public
+
+router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
+    res.json({ msg: 'Success' });
 });
 
 module.exports = router;

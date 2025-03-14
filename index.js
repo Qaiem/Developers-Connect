@@ -4,11 +4,12 @@ const users = require("./routes/api/users");
 const post = require("./routes/api/post");
 const profile = require("./routes/api/profile");
 const bodyParser = require("body-parser");
+const passport = require("passport");
 
 const app = express();
 
 
-//body parser middleware
+//body parser middleware 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -22,6 +23,11 @@ mongoose
   .connect(db)
   .then(() => console.log("MongoDB Connected..."))
   .catch((err) => console.log(err));
+
+//Middleware For Authentication using Passport
+app.use(passport.initialize());
+//Passport Config
+require("./config/passport")(passport);
 
 //routes
 app.use("/api/users", users);
@@ -37,10 +43,15 @@ app.use("/api/profile", profile);
 //   .then(() => console.log("User added, database created"))
 //   .catch((err) => console.error(err));
 
-app.get("/", (req, res) => {
-  res.send("Hello Worldgg!");
-});
+// app.get("/", (req, res) => {
+//   res.send("Hello Worldgg!");
+// });
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+
+// Feature	Body-Parser	                                            Passport
+// Purpose	Parses incoming request bodies	                        Handles authentication
+// Use Case	Extracts data from requests (e.g., JSON, form data)	    Manages user authentication (e.g., login, sessions)
