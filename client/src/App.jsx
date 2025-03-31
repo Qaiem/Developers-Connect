@@ -6,7 +6,7 @@ function App() {
   return (
     <>
       <div>
-        <h1 className='text-3xl font-bold'>Developers Connect</h1>
+        <h1 className='text-2xl font-bold'>Developers Connect</h1>
       </div>
     </>
   )
