@@ -1,14 +1,23 @@
 import React from 'react'
-import './App.css'
+import Navbar from '../components/Navbar'
+import Hero from '../components/Hero'
+import Footer from '../components/Footer'
+// import { Route, Routes  } from 'react-router-dom'
+
+
 
 function App() {
-
   return (
-    <>
+     <div>
       <div>
-        <h1 className='text-2xl font-bold'>Developers Connect</h1>
+        <Navbar />
+        <Hero />
+        <Footer />
       </div>
-    </>
+      {/* <div className='flex flex-col items-center justify-center h-screen bg-gray-100'> */}
+        
+        
+      </div>
   )
 }
 

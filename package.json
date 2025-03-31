@@ -1,0 +1,22 @@
+{
+  "name": "developers-connect",
+  "version": "1.0.0",
+  "description": "Social Network For Developers To Connect",
+  "main": "index.js",
+  "scripts": {
+    "client": "npm start --prefix client",
+    "server": "npm start --prefix server",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Qaiem/Developers-Connect/issues"
+  },
+  "homepage": "https://github.com/Qaiem/Developers-Connect#readme",
+  "dependencies": {
+    "concurrently": "^9.1.2",
+    "developers-connect": "file:"
+  }
+}

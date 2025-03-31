@@ -6,15 +6,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "server": "nodemon index.js",
-    "client": "cd client && npm start"
+    "server": "nodemon index.js"
   },
   "author": "Qaiem",
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^3.0.2",
     "body-parser": "^1.20.3",
-    "concurrently": "^9.1.2",
     "developers-connect": "file:",
     "express": "^4.21.2",
     "gravatar": "^1.8.2",
