@@ -1,12 +1,15 @@
 {
   "name": "developers-connect",
   "version": "1.0.0",
-  "description": "Social Network For Developers To Connect",
   "main": "index.js",
   "scripts": {
     "client": "npm start --prefix client",
     "server": "npm start --prefix server",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "fullstack": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Qaiem/Developers-Connect.git"
   },
   "keywords": [],
   "author": "",
@@ -15,8 +18,11 @@
     "url": "https://github.com/Qaiem/Developers-Connect/issues"
   },
   "homepage": "https://github.com/Qaiem/Developers-Connect#readme",
+  "description": "",
   "dependencies": {
-    "concurrently": "^9.1.2",
     "developers-connect": "file:"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
   }
 }
