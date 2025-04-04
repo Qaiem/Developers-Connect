@@ -2,22 +2,25 @@ import React from 'react'
 import Navbar from '../components/Navbar'
 import Hero from '../components/Hero'
 import Footer from '../components/Footer'
-// import { Route, Routes  } from 'react-router-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import Login from '../components/auth/login'
+import Register from '../components/auth/Register'
 
 
 
 function App() {
   return (
-     <div>
+     <Router>
       <div>
         <Navbar />
-        <Hero />
+        <Route exact path='/' Component={Hero} />
+        <div className='container'>
+          <Route path='/login' Component={Login} />
+          <Route path='/register' Component={Register} />
+        </div>
         <Footer />
       </div>
-      {/* <div className='flex flex-col items-center justify-center h-screen bg-gray-100'> */}
-        
-        
-      </div>
+      </Router>
   )
 }
 
