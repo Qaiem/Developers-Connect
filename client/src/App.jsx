@@ -1,4 +1,4 @@
-import React,{ Component } from 'react';
+import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
@@ -14,7 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Hero />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/signup" element={<Register />} />
         </Routes>
       </div>
       <Footer />

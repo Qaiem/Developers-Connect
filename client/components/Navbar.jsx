@@ -95,6 +95,11 @@ const Navbar = () => {
             className={({ isActive }) => isActive ? "text-blue-600 font-semibold text-lg" : "hover:text-blue-600 transition text-lg"}>
             About
           </NavLink>
+          <NavLink 
+            to="/contact" 
+            className={({ isActive }) => isActive ? "text-blue-600 font-semibold text-lg" : "hover:text-blue-600 transition text-lg"}>
+            Contact
+          </NavLink>
         </div>
 
         {/* Auth Buttons with Magic Effect */}
@@ -131,7 +136,7 @@ const Navbar = () => {
             Explore
           </NavLink>
           <NavLink 
-            to="/developers" 
+            to="/profiles" 
             className="hover:text-blue-600 focus:text-blue-600" 
             onClick={() => setMenuOpen(false)}>
             Developers
@@ -141,6 +146,12 @@ const Navbar = () => {
             className="hover:text-blue-600 focus:text-blue-600" 
             onClick={() => setMenuOpen(false)}>
             About
+          </NavLink>
+          <NavLink 
+            to="/contact" 
+            className="hover:text-blue-600 focus:text-blue-600" 
+            onClick={() => setMenuOpen(false)}>
+            Contact
           </NavLink>
           <Link 
             to="/login" 
