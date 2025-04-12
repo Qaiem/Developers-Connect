@@ -1,0 +1,16 @@
+/* Navbar styles */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10; /* Make sure the navbar stays on top of other content */
+    background-color: #fff; /* Optional: background color for navbar */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: box shadow for visibility */
+  }
+  
+  /* Body padding to prevent content from being hidden under the navbar */
+  body {
+    padding-top: 0px; /* Adjust this value based on your navbar's height */
+  }
+  

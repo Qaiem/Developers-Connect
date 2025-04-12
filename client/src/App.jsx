@@ -8,9 +8,10 @@ import Register from '../components/auth/Register';
 
 function App() {
   return (
-    <div>
+    <div className="min-h-screen">
       <Navbar />
-      <div className="container mx-auto">
+      {/* Content with top padding to account for the fixed navbar */}
+      <div className="container mx-auto pt-2"> {/* Added padding top to avoid overlap */}
         <Routes>
           <Route path="/" element={<Hero />} />
           <Route path="/login" element={<Login />} />

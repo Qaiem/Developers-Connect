@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
 
 const Register = () => {
   const navigate = useNavigate();
@@ -16,34 +18,34 @@ const Register = () => {
     e.preventDefault();
     setMessage(null);
     setError(null);
-
+  
     if (password !== password2) {
       setError('Passwords do not match');
       return;
     }
-
+  
     try {
-      const response = await fetch('http://localhost:5000/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, password }),
+      const { data } = await axios.post('/api/users/register', {
+        name,
+        email,
+        password,
+        password2,
       });
-
-      const data = await response.json();
-      if (response.ok) {
-        setMessage(data.message);
-        setTimeout(() => navigate('/login'), 1500); // Redirect to login after delay
-      } else {
-        setError(data.message || 'Registration failed');
-      }
-    } catch (error) {
-      setError('Server error. Please try again later.',error);
+  
+      setMessage(data.message);
+      setTimeout(() => navigate('/login'), 1500); // Redirect to login after delay
+    } catch (err) {
+      const errorMsg =
+        err.response?.data?.message || 'Server error. Please try again later.';
+      setError(errorMsg);
+      console.error('Registration error:', err);
     }
   };
+  
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gradient-to-r from-purple-100 to-blue-100 p-4">
-      <div className="bg-white p-10 rounded-2xl shadow-xl w-full max-w-md">
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-purple-100 to-blue-100 p-4 mt-1">
+      <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-sm">
         <h1 className="text-3xl font-bold text-center text-blue-700 mb-6">Register Yourself</h1>
 
         {message && <p className="text-green-600 text-center mb-3">{message}</p>}
