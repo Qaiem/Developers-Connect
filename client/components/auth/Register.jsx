@@ -19,6 +19,24 @@ const Register = () => {
     setMessage(null);
     setError(null);
   
+    // Client-side validation
+    if (!name || !email || !password || !password2) {
+      setError('All fields are required');
+      return;
+    }
+  
+    // Simple email regex for basic validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError('Invalid email address');
+      return;
+    }
+  
+    if (password.length < 6) {
+      setError('Password must be at least 6 characters long');
+      return;
+    }
+  
     if (password !== password2) {
       setError('Passwords do not match');
       return;
@@ -33,7 +51,7 @@ const Register = () => {
       });
   
       setMessage(data.message);
-      setTimeout(() => navigate('/login'), 1500); // Redirect to login after delay
+      setTimeout(() => navigate('/login'), 1500);
     } catch (err) {
       const errorMsg =
         err.response?.data?.message || 'Server error. Please try again later.';
@@ -41,6 +59,7 @@ const Register = () => {
       console.error('Registration error:', err);
     }
   };
+  
   
 
   return (
