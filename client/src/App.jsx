@@ -11,7 +11,7 @@ function App() {
     <div className="min-h-screen">
       <Navbar />
       {/* Content with top padding to account for the fixed navbar */}
-      <div className="container mx-auto pt-2"> {/* Added padding top to avoid overlap */}
+      <div className="container mx-auto pt-8"> {/* Added padding top to avoid overlap */}
         <Routes>
           <Route path="/" element={<Hero />} />
           <Route path="/login" element={<Login />} />

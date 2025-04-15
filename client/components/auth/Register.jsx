@@ -104,7 +104,7 @@
 //   </div>
 // );
 
-// // ✅ PasswordField Component
+// // PasswordField Component
 // const PasswordField = ({ label, value, setValue, show, toggleShow }) => (
 //   <div>
 //     <label className="block text-gray-600 font-medium mb-1">{label}</label>
@@ -182,9 +182,10 @@ const Register = () => {
       setPassword("");
       setPassword2("");
     } catch (err) {
-      if (err.response && err.response.data.errors) {
-        setError(err.response.data.errors);
-      } else {
+      if (err.response && err.response.data) {
+        setError(err.response.data.errors || err.response.data);
+      }
+       else {
         setError({ general: "An unexpected error occurred." });
       }
     }
@@ -193,18 +194,18 @@ const Register = () => {
   return (
     <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-purple-100 to-blue-100 p-4 mt-1">
       <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-sm">
-        <h1 className="text-3xl font-bold text-center text-blue-700 mb-6">
-          Register Yourself
+        <h1 className="text-3xl font-bold text-center text-blue-700 mb-2">
+          Register
         </h1>
 
         {message && (
-          <p className="text-green-600 text-center mb-3">{message}</p>
+          <p className="text-green-600 text-center mb-2">{message}</p>
         )}
         {error.general && (
-          <p className="text-red-600 text-center mb-3">{error.general}</p>
+          <p className="text-red-600 text-center mb-2">{error.general}</p>
         )}
 
-        <form className="space-y-4" onSubmit={handleRegister}>
+        <form noValidate className="space-y-2" onSubmit={handleRegister}>
           <InputField
             label="Full Name"
             type="text"
@@ -248,7 +249,7 @@ const Register = () => {
 
         <Link
           to="/login"
-          className="text-center text-sm text-gray-600 mt-4 block"
+          className="text-center text-sm text-gray-600 mt-2 block"
         >
           Already have an account?{" "}
           <span className="text-blue-600 hover:underline">Login</span>
