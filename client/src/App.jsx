@@ -5,10 +5,13 @@ import Hero from '../components/Hero';
 import Footer from '../components/Footer';
 import Login from '../components/auth/Login';
 import Register from '../components/auth/Register';
+import { Provider } from 'react-redux';
+import store from './store';
 
 function App() {
   return (
-    <div className="min-h-screen">
+    <Provider store={store}>
+    <div className="min-h-screen flex flex-col">
       <Navbar />
       {/* Content with top padding to account for the fixed navbar */}
       <div className="container mx-auto pt-8"> {/* Added padding top to avoid overlap */}
@@ -20,6 +23,7 @@ function App() {
       </div>
       <Footer />
     </div>
+    </Provider>
   );
 }
 
