@@ -147,7 +147,9 @@
 
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { registerUser } from "../../src/actions/authActions";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -169,26 +171,6 @@ const Register = () => {
       return;
     }
 
-    try {
-      const res = await axios.post("/api/users/register", {
-        name,
-        email,
-        password,
-        password2,
-      });
-      setMessage(res.data.message);
-      setName("");
-      setEmail("");
-      setPassword("");
-      setPassword2("");
-    } catch (err) {
-      if (err.response && err.response.data) {
-        setError(err.response.data.errors || err.response.data);
-      }
-       else {
-        setError({ general: "An unexpected error occurred." });
-      }
-    }
   };
 
   return (
@@ -243,7 +225,7 @@ const Register = () => {
             type="submit"
             className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
           >
-            Register
+            Submit
           </button>
         </form>
 
@@ -339,4 +321,13 @@ const EyeOpenIcon = () => (
   </svg>
 );
 
-export default Register;
+Register.propTypes = {
+  registerUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, {registerUser})(Register);

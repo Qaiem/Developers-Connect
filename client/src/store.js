@@ -3,8 +3,7 @@ import rootReducer from "./reducers";
 
 const store = configureStore({
   reducer: rootReducer,
-  // ✅ no need to add thunk manually, it's already included by default
-  preloadedState: {},
+  // No need to add thunk — it's included by default
 });
 
 export default store;
