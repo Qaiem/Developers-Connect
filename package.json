@@ -20,7 +20,8 @@
   "homepage": "https://github.com/Qaiem/Developers-Connect#readme",
   "description": "",
   "dependencies": {
-    "developers-connect": "file:"
+    "developers-connect": "file:",
+    "prop-types": "^15.8.1"
   },
   "devDependencies": {
     "concurrently": "^9.1.2"

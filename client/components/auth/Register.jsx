@@ -151,7 +151,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { registerUser } from "../../src/actions/authActions";
 
-const Register = () => {
+const Register = (props) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -165,16 +165,32 @@ const Register = () => {
     e.preventDefault();
     setMessage(null);
     setError({});
-
+  
     if (password !== password2) {
       setError({ password2: "Passwords do not match" });
       return;
     }
-
+  
+    const newUser = {
+      name,
+      email,
+      password,
+      password2
+    };
+  
+    try {
+      await props.registerUser(newUser);
+      setMessage("Registration successful!");
+      // clear fields...
+    } catch (err) {
+      setError(err); // Now err will be an object like { email: "Invalid", ... }
+    }
+    
   };
-
+  
   return (
     <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-purple-100 to-blue-100 p-4 mt-1">
+      
       <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-sm">
         <h1 className="text-3xl font-bold text-center text-blue-700 mb-2">
           Register
