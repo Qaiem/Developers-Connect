@@ -146,7 +146,7 @@
 
 
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { registerUser } from "../../src/actions/authActions";
@@ -160,6 +160,8 @@ const Register = (props) => {
   const [showPassword2, setShowPassword2] = useState(false);
   const [message, setMessage] = useState(null);
   const [error, setError] = useState({});
+  const navigate = useNavigate();
+
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -181,6 +183,10 @@ const Register = (props) => {
     try {
       await props.registerUser(newUser);
       setMessage("Registration successful!");
+      setTimeout(() => {
+      navigate("/login");
+      }, 2000); // Redirect to login page after 2 seconds
+       // Redirect to login page after successful registration
       // clear fields...
     } catch (err) {
       setError(err); // Now err will be an object like { email: "Invalid", ... }
@@ -340,10 +346,12 @@ const EyeOpenIcon = () => (
 Register.propTypes = {
   registerUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  errors: state.errors,
 });
 
 export default connect(mapStateToProps, {registerUser})(Register);

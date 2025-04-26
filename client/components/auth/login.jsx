@@ -36,7 +36,7 @@ const Login = () => {
         <h1 className="text-3xl font-bold text-center text-blue-700 mb-6">
           Login
         </h1>
-        <form className="space-y-4" onSubmit={handleLogin}>
+        <form noValidate className="space-y-4" onSubmit={handleLogin}>
           <div>
             <label className="block text-gray-600 font-medium mb-1">
               Email
