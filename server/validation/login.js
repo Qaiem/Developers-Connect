@@ -9,10 +9,12 @@ module.exports = function validateLoginInput(data) {
 
     if(!Validator.isEmail(data.email)) {
         errors.email = 'Email is invalid';
-    }
-    if(Validator.isEmpty(data.email)) {
+    } else if (Validator.isEmpty(data.email)) {
         errors.email = 'Email field is required';
+    } else if (/[A-Z]/.test(data.email)) {
+        errors.email = 'Email must not contain uppercase letters';
     }
+    
     if(Validator.isEmpty(data.password)) {
         errors.password = 'Password field is required';
     }
