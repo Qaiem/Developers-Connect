@@ -60,12 +60,14 @@
 
 // export default Navbar;
 
-
 "use client";
 import React, { useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { assets } from "../src/assets/frontend_assets/Assets";
 import { Menu, X } from "lucide-react"; // Icon for mobile menu
+import PropTypes from "prop-types";
+import { connect } from "react-redux"; // Import connect from react-redux
+import { logoutUser } from "../src/actions/authActions";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -171,4 +173,14 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+// PropTypes for type checking
+Navbar.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+};
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+
+export default connect(mapStateToProps, {logoutUser})(Navbar);

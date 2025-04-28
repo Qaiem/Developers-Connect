@@ -156,17 +156,15 @@ const Login = (props) => {
     setLoading(true);
 
     try {
-      const res = await props.loginUser({
+    await props.loginUser({
         email,
         password,
       });
 
       alert("Login successful");
-      localStorage.setItem("token", res.data.token);
-      navigate("/");
+      // localStorage.setItem("token", res.data.token);
+      navigate("/"); // Redirect to dashboard after successful login
     } catch (err) {
-      // const msg = error.message || "Login failed. Try again.";
-      // alert(msg);
       setErrors(err)
       setLoading(false);
     }

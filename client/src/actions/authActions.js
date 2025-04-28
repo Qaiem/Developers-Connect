@@ -53,8 +53,11 @@ export const setCurrentUser = (decoded) => {
   };
 };
 //Logout User
-// export const logoutUser = () => (dispatch) => {
-//   localStorage.removeItem("token");
-//   delete axios.defaults.headers.common["Authorization"];
-//   dispatch(setCurrentUser({}));
-// };
+export const logoutUser = () => (dispatch) => {
+  // Remove token from local storage
+  localStorage.removeItem("token");
+  // Remove auth header for future requests
+  setAuthToken(false); // Set token to false in axios headers
+  // Set current user to {} which will set isAuthenticated to false
+  dispatch(setCurrentUser({})); // Dispatch action to set current user to empty object
+};
