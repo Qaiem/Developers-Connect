@@ -50,7 +50,7 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-import { assets } from "../src/assets/frontend_assets/Assets";
+import { assets } from "../assets/frontend_assets/Assets";
 import {
   FaFacebookF,
   FaTwitter,

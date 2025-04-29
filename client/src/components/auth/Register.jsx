@@ -149,7 +149,7 @@ import React, { useState } from "react";
 import { Link,useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { registerUser } from "../../src/actions/authActions";
+import { registerUser } from "../../actions/authActions";
 
 const Register = (props) => {
   const [name, setName] = useState("");

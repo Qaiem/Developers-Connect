@@ -137,7 +137,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Link, useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
-import { loginUser } from "../../src/actions/authActions"; // Import the loginUser action
+import { loginUser } from "../../actions/authActions"; // Import the loginUser action
 
 const Login = (props) => {
   const [showPassword, setShowPassword] = useState(false);
