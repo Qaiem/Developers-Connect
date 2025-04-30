@@ -1,155 +1,150 @@
-// import React, { useState } from 'react';
-// import { Link } from 'react-router-dom';
-// import axios from 'axios';
+// import React, { useState } from "react";
+// import { Link,useNavigate } from "react-router-dom";
+// import PropTypes from "prop-types";
+// import { connect } from "react-redux";
+// import { registerUser } from "../../actions/authActions";
+// import TextFieldGroup from "../../common/TextFieldGroup";
 
-
-
-// const Register = () => {
-//   const [name, setName] = useState('');
-//   const [email, setEmail] = useState('');
-//   const [password, setPassword] = useState('');
-//   const [password2, setPassword2] = useState('');
+// const Register = (props) => {
+//   const [name, setName] = useState("");
+//   const [email, setEmail] = useState("");
+//   const [password, setPassword] = useState("");
+//   const [password2, setPassword2] = useState("");
 //   const [showPassword, setShowPassword] = useState(false);
 //   const [showPassword2, setShowPassword2] = useState(false);
 //   const [message, setMessage] = useState(null);
-//   const [error, setError] = useState(null);
+//   const [error, setError] = useState({});
+//   const navigate = useNavigate();
 
 
 //   const handleRegister = async (e) => {
 //     e.preventDefault();
 //     setMessage(null);
-//     setError(null);
-
+//     setError({});
+  
 //     if (password !== password2) {
-//       setError('Passwords do not match');
+//       setError({ password2: "Passwords do not match" });
 //       return;
 //     }
   
-
+//     const newUser = {
+//       name,
+//       email,
+//       password,
+//       password2
+//     };
+  
 //     try {
-//       const { data } = await axios.post('/api/users/register', {
-//         name,
-//         email,
-//         password,
-//         password2,
-//       });
-
-//       setMessage(data.message);
+//       await props.registerUser(newUser);
+//       setMessage("Registration successful!");
+//       setEmail("");
+//       setName("");
+//       setPassword("");
+//       setPassword2("");
+//       setTimeout(() => {
+//       navigate("/login");
+//       }, 2000); // Redirect to login page after 2 seconds
+//        // Redirect to login page after successful registration
+//       // clear fields...
 //     } catch (err) {
-//       const errorMsg =
-//         err.response?.data?.message || 'Server error. Please try again later.';
-//       setError(errorMsg);
-//       console.error('Registration error:', err);
+//       setError(err); // Now err will be an object like { email: "Invalid", ... }
 //     }
+    
 //   };
-
-
-
+  
 //   return (
 //     <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-purple-100 to-blue-100 p-4 mt-1">
+      
 //       <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-sm">
-//         <h1 className="text-3xl font-bold text-center text-blue-700 mb-6">Register Yourself</h1>
+//         <h1 className="text-3xl font-bold text-center text-blue-700 mb-2">
+//           Register
+//         </h1>
 
-//         {message && <p className="text-green-600 text-center mb-3">{message}</p>}
-//         {error && <p className="text-red-600 text-center mb-3">{error}</p>}
+//         {message && (
+//           <p className="text-green-600 text-center mb-1">{message}</p>
+//         )}
+//         {error.general && (
+//           <p className="text-red-600 text-center mb-2">{error.general}</p>
+//         )}
 
-//         <form className="space-y-4" onSubmit={handleRegister}>
-//           <InputField label="Full Name" type="text" value={name} onChange={setName} />
-//           <InputField label="Email" type="email" value={email} onChange={setEmail} />
-        
-//           <PasswordField 
-//             label="Password" 
-//             value={password} 
-//             setValue={setPassword} 
-//             show={showPassword} 
-//             toggleShow={() => setShowPassword(!showPassword)} 
+//         <form noValidate className="space-y-2" onSubmit={handleRegister}>
+//           <TextFieldGroup
+//             placeholder="Enter your full name"
+//             label="Full Name"
+//             type="text"
+//             value={name}
+//             onChange={(e) => setName(e.target.value)}
+//             error={error.name}
 //           />
-
-//           <PasswordField 
-//             label="Confirm Password" 
-//             value={password2} 
-//             setValue={setPassword2} 
-//             show={showPassword2} 
-//             toggleShow={() => setShowPassword2(!showPassword2)} 
+//           <TextFieldGroup
+//             placeholder="Enter your email"
+//             label="Email"
+//             type="email"
+//             value={email}
+//             onChange={(e) => setEmail(e.target.value)}
+//             error={error.email}
+//             info='Want Profile image? Use Gravatar email'
 //           />
-
+//           <TextFieldGroup 
+//               placeholder="Enter your password"
+//               label="Password"
+//               type={showPassword ? "text" : "password"}
+//               value={password}
+//               onChange={(e) => setPassword(e.target.value)}
+//               error={error.password}
+//               show={showPassword}
+//               toggleShow={() => setShowPassword(!showPassword)}
+//             />
+//           <TextFieldGroup 
+//               placeholder="Confirm your password"
+//               label="Confirm Password"
+//               type={showPassword2 ? "text" : "password"}
+//               value={password2}
+//               onChange={(e) => setPassword2(e.target.value)}
+//               error={error.password2}
+//               show={showPassword2}
+//               toggleShow={() => setShowPassword2(!showPassword2)}
+//             />
 //           <button
 //             type="submit"
 //             className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
 //           >
-//             Register
+//             Submit
 //           </button>
 //         </form>
 
-//         <Link to="/login" className="text-center text-sm text-gray-600 mt-4 block">
-//           Already have an account? <span className="text-blue-600 hover:underline">Login</span>
+//         <Link
+//           to="/login"
+//           className="text-center text-sm text-gray-600 mt-2 block"
+//         >
+//           Already have an account?{" "}
+//           <span className="text-blue-600 hover:underline">Login</span>
 //         </Link>
 //       </div>
 //     </div>
 //   );
 // };
 
-// // ✅ InputField Component
-// const InputField = ({ label, type, value, onChange }) => (
-//   <div>
-//     <label className="block text-gray-600 font-medium mb-1">{label}</label>
-//     <input
-//       type={type}
-//       placeholder={`Enter your ${label.toLowerCase()}`}
-//       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400"
-//       value={value}
-//       onChange={(e) => onChange(e.target.value)}
-//       required
-//     />
-//   </div>
-// );
+// Register.propTypes = {
+//   registerUser: PropTypes.func.isRequired,
+//   auth: PropTypes.object.isRequired,
+//   errors: PropTypes.object.isRequired,
+// };
 
-// // PasswordField Component
-// const PasswordField = ({ label, value, setValue, show, toggleShow }) => (
-//   <div>
-//     <label className="block text-gray-600 font-medium mb-1">{label}</label>
-//     <div className="relative">
-//       <input
-//         type={show ? 'text' : 'password'}
-//         placeholder={`Enter your ${label.toLowerCase()}`}
-//         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 pr-10"
-//         value={value}
-//         onChange={(e) => setValue(e.target.value)}
-//         required
-//       />
-//       <button
-//         type="button"
-//         onClick={toggleShow}
-//         className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-purple-600"
-//       >
-//         {show ? <EyeSlashIcon /> : <EyeOpenIcon />}
-//       </button>
-//     </div>
-//   </div>
-// );
+// const mapStateToProps = (state) => ({
+//   auth: state.auth,
+//   errors: state.errors,
+// });
 
-// // ✅ Eye Icons
-// const EyeSlashIcon = () => (
-//   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-//     <path d="M4.293 4.293a1 1 0 011.414 0l10 10a1 1 0 01-1.414 1.414l-1.868-1.868A7.018 7.018 0 0110 17c-4.418 0-8-4-8-7s3.582-7 8-7a7.018 7.018 0 015.586 2.879l1.121-1.121a1 1 0 111.415 1.414l-16 16a1 1 0 01-1.414-1.414L4.293 4.293zM10 5c-3.314 0-6 2.686-6 5s2.686 5 6 5a5.984 5.984 0 004.472-2.035l-1.414-1.414A4.001 4.001 0 0110 13a4 4 0 010-8z" />
-//   </svg>
-// );
-
-// const EyeOpenIcon = () => (
-//   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-//     <path d="M10 3c-4.418 0-8 4-8 7s3.582 7 8 7 8-4 8-7-3.582-7-8-7zm0 12c-2.761 0-5-2.239-5-5s2.239-5 5-5 5 2.239 5 5-2.239 5-5 5z" />
-//     <path d="M10 8a2 2 0 100 4 2 2 0 000-4z" />
-//   </svg>
-// );
-
-// export default Register;
+// export default connect(mapStateToProps, {registerUser})(Register);
 
 
 import React, { useState } from "react";
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { registerUser } from "../../actions/authActions";
+import TextFieldGroup from "../../common/TextFieldGroup";
 
 const Register = (props) => {
   const [name, setName] = useState("");
@@ -162,90 +157,91 @@ const Register = (props) => {
   const [error, setError] = useState({});
   const navigate = useNavigate();
 
-
   const handleRegister = async (e) => {
     e.preventDefault();
     setMessage(null);
     setError({});
-  
+
     if (password !== password2) {
       setError({ password2: "Passwords do not match" });
       return;
     }
-  
+
     const newUser = {
       name,
       email,
       password,
-      password2
+      password2,
     };
-  
+
     try {
       await props.registerUser(newUser);
       setMessage("Registration successful!");
+      setEmail("");
+      setName("");
+      setPassword("");
+      setPassword2("");
       setTimeout(() => {
-      navigate("/login");
+        navigate("/login");
       }, 2000); // Redirect to login page after 2 seconds
-       // Redirect to login page after successful registration
-      // clear fields...
     } catch (err) {
       setError(err); // Now err will be an object like { email: "Invalid", ... }
     }
-    
   };
-  
+
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-purple-100 to-blue-100 p-4 mt-1">
-      
-      <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-sm">
-        <h1 className="text-3xl font-bold text-center text-blue-700 mb-2">
-          Register
-        </h1>
+    <div className="flex justify-center items-center min-h-[80vh] bg-gradient-to-r from-purple-200 to-blue-200 px-4 py-6 sm:px-6 sm:py-10">
+      <div className="bg-white p-5 sm:p-6 rounded-xl shadow-lg w-full max-w-sm sm:max-w-md">
+        <h1 className="text-2xl font-bold text-center text-blue-700 mb-1">Register</h1>
 
         {message && (
-          <p className="text-green-600 text-center mb-2">{message}</p>
+          <p className="text-green-600 text-center mb-1">{message}</p>
         )}
         {error.general && (
-          <p className="text-red-600 text-center mb-2">{error.general}</p>
+          <p className="text-red-600 text-center mb-0.2">{error.general}</p>
         )}
 
-        <form noValidate className="space-y-2" onSubmit={handleRegister}>
-          <InputField
+        <form noValidate className="space-y-0.5" onSubmit={handleRegister}>
+          <TextFieldGroup
+            placeholder="Enter your full name"
             label="Full Name"
             type="text"
             value={name}
-            onChange={setName}
+            onChange={(e) => setName(e.target.value)}
             error={error.name}
           />
-          <InputField
+          <TextFieldGroup
+            placeholder="Enter your email"
             label="Email"
             type="email"
             value={email}
-            onChange={setEmail}
+            onChange={(e) => setEmail(e.target.value)}
             error={error.email}
+            info="Want a profile image? Use your Gravatar email"
           />
-
-          <PasswordField
+          <TextFieldGroup
+            placeholder="Enter your password"
             label="Password"
+            type={showPassword ? "text" : "password"}
             value={password}
-            setValue={setPassword}
+            onChange={(e) => setPassword(e.target.value)}
+            error={error.password}
             show={showPassword}
             toggleShow={() => setShowPassword(!showPassword)}
-            error={error.password}
           />
-
-          <PasswordField
+          <TextFieldGroup
+            placeholder="Confirm your password"
             label="Confirm Password"
+            type={showPassword2 ? "text" : "password"}
             value={password2}
-            setValue={setPassword2}
+            onChange={(e) => setPassword2(e.target.value)}
+            error={error.password2}
             show={showPassword2}
             toggleShow={() => setShowPassword2(!showPassword2)}
-            error={error.password2}
           />
-
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
+            className="w-full bg-blue-600 text-white text-sm sm:text-base py-2 rounded-lg hover:bg-blue-700 transition duration-300 ease-in-out"
           >
             Submit
           </button>
@@ -253,7 +249,7 @@ const Register = (props) => {
 
         <Link
           to="/login"
-          className="text-center text-sm text-gray-600 mt-2 block"
+          className="text-center text-sm text-gray-600 mt-4 block"
         >
           Already have an account?{" "}
           <span className="text-blue-600 hover:underline">Login</span>
@@ -262,86 +258,6 @@ const Register = (props) => {
     </div>
   );
 };
-
-// ✅ InputField Component
-const InputField = ({ label, type, value, onChange, error }) => (
-  <div>
-    <label className="block text-gray-600 font-medium mb-1">{label}</label>
-    <input
-      type={type}
-      placeholder={`Enter your ${label.toLowerCase()}`}
-      className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 pr-10 ${
-        error
-          ? "border-red-400 focus:ring-red-300"
-          : "border-gray-300 focus:ring-purple-400"
-      }`}
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-      required
-    />
-    {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
-  </div>
-);
-
-// ✅ PasswordField Component
-const PasswordField = ({
-  label,
-  value,
-  setValue,
-  show,
-  toggleShow,
-  error,
-}) => (
-  <div>
-    <label className="block text-gray-600 font-medium mb-1">{label}</label>
-    <div className="relative">
-      <input
-        type={show ? "text" : "password"}
-        placeholder={`Enter your ${label.toLowerCase()}`}
-        className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 pr-10 ${
-          error
-            ? "border-red-400 focus:ring-red-300"
-            : "border-gray-300 focus:ring-purple-400"
-        }`}
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        required
-      />
-      <button
-        type="button"
-        onClick={toggleShow}
-        className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-purple-600"
-      >
-        {show ? <EyeSlashIcon /> : <EyeOpenIcon />}
-      </button>
-    </div>
-    {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
-  </div>
-);
-
-// ✅ Eye Icons
-const EyeSlashIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    className="h-5 w-5"
-    viewBox="0 0 20 20"
-    fill="currentColor"
-  >
-    <path d="M4.293 4.293a1 1 0 011.414 0l10 10a1 1 0 01-1.414 1.414l-1.868-1.868A7.018 7.018 0 0110 17c-4.418 0-8-4-8-7s3.582-7 8-7a7.018 7.018 0 015.586 2.879l1.121-1.121a1 1 0 111.415 1.414l-16 16a1 1 0 01-1.414-1.414L4.293 4.293zM10 5c-3.314 0-6 2.686-6 5s2.686 5 6 5a5.984 5.984 0 004.472-2.035l-1.414-1.414A4.001 4.001 0 0110 13a4 4 0 010-8z" />
-  </svg>
-);
-
-const EyeOpenIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    className="h-5 w-5"
-    viewBox="0 0 20 20"
-    fill="currentColor"
-  >
-    <path d="M10 3c-4.418 0-8 4-8 7s3.582 7 8 7 8-4 8-7-3.582-7-8-7zm0 12c-2.761 0-5-2.239-5-5s2.239-5 5-5 5 2.239 5 5-2.239 5-5 5z" />
-    <path d="M10 8a2 2 0 100 4 2 2 0 000-4z" />
-  </svg>
-);
 
 Register.propTypes = {
   registerUser: PropTypes.func.isRequired,
@@ -354,4 +270,4 @@ const mapStateToProps = (state) => ({
   errors: state.errors,
 });
 
-export default connect(mapStateToProps, {registerUser})(Register);
+export default connect(mapStateToProps, { registerUser })(Register);
