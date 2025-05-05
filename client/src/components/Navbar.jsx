@@ -68,6 +68,8 @@ import { Menu, X } from "lucide-react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../actions/authActions";
+import { clearCurrentProfile } from "../actions/profileAction";
+
 
 const Navbar = ({ auth, logoutUser }) => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -75,6 +77,7 @@ const Navbar = ({ auth, logoutUser }) => {
 
   const handleLogout = () => {
     logoutUser();
+    clearCurrentProfile(); // Clear current profile on logout
     setMenuOpen(false); // Close menu after logout
   };
 
@@ -255,4 +258,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { logoutUser })(Navbar);
+export default connect(mapStateToProps, { logoutUser, clearCurrentProfile })(Navbar);

@@ -29,7 +29,7 @@ const Login = (props) => {
 
       alert("Login successful");
       // localStorage.setItem("token", res.data.token);
-      navigate("/"); // Redirect to dashboard after successful login
+      navigate("/dashboard"); // Redirect to dashboard after successful login
     } catch (err) {
       setErrors(err);
       setLoading(false);

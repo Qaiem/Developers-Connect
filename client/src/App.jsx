@@ -10,6 +10,8 @@ import store from './store';
 import {jwtDecode} from 'jwt-decode';
 import setAuthToken from './utils/setAuthToken';
 import { setCurrentUser,logoutUser } from './actions/authActions';
+import Dashboarddev from './components/dashboard/Dashboarddev';
+import { clearCurrentProfile } from './actions/profileAction';
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -25,6 +27,8 @@ if (localStorage.jwtToken) {
   if (decoded.exp < currentTime) {
     // Logout user
     store.dispatch(logoutUser());
+    //Clear current Profile
+    store.dispatch(clearCurrentProfile());
     // Redirect to login
     window.location.href = '/login';
   }
@@ -41,6 +45,8 @@ function App() {
           <Route path="/" element={<Hero />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Register />} />
+          <Route path="/dashboard" element={<Dashboarddev />} />
+          {/* Add more routes as needed */}
         </Routes>
       </div>
       <Footer />
